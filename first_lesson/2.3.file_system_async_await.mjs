@@ -9,23 +9,19 @@ fs.readFilePromise('./archivo.txt', 'utf-8')
     })
 
 */
+import {readFile} from 'node:fs/promises';
 
-const fs = require('node:fs/promises');
+//const fs = require('node:fs/promises');
 
-//asyncronic way
 console.log('Leyendo el primer archivo------------');
-fs.readFile('./archivo.txt', 'utf-8')
-    .then(text =>{
-        console.log('primer texto => ', text);
-    })
+const text = await readFile('./archivo.txt', 'utf-8');
+console.log('primer texto =>', text);
 
 console.log("Hacer cosas mientras lee el archivo");
 
 console.log('Leyendo el segundo archivo------------');
-fs.readFile('./archivo2.txt', 'utf-8')
-    .then(text => {
-        console.log("segundo texto =>", text);
-    })
+const text2 = await readFile('./archivo2.txt', 'utf-8')
+console.log("segundo texto =>", text2);
 
 
 
