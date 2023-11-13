@@ -1,5 +1,6 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const picocolors = require('picocolors');
 
 //de esta forma podemos mostrar por consola todos los archivos existentes en la ruta actual, funciona como el comando
 // ls de la terminal.
@@ -16,7 +17,7 @@ async function ls(folder){
     try{
         files = await fs.readdir(folder);
     }catch{
-        console.error(`No se pudo leer el directorio ${folder}`)
+        console.error(picocolors.red(`No se pudo leer el directorio ${folder}`))
         //acá estamos saliendo de forma controlada
         process.exit(1)
     }
@@ -26,14 +27,14 @@ async function ls(folder){
         try{
             stats = await fs.stat(filePath) // status- información del archivo
         }catch{
-            console.error(`No se pudo leer el archivo ${filePath}`);
+            console.error(picocolors.red(`No se pudo leer el archivo ${filePath}`));
             process.exit(1)
         }
         const isDirectory = stats.isDirectory()
         const fileType = isDirectory ? 'd' : 'f';
         const fileSize = stats.size
         const fileModified = stats.mtime.toLocaleString()
-        return `${fileType} ${file.padEnd(40)} ${fileSize.toString().padStart(10)} ${fileModified}`
+        return `${fileType} ${picocolors.blue(file.padEnd(40))} ${picocolors.green(fileSize.toString().padStart(10))} ${picocolors.yellow(fileModified)}`
     })
     const filesInfo = await Promise.all(filesPromises);
     filesInfo.map(fileInfo=> console.log(fileInfo));
