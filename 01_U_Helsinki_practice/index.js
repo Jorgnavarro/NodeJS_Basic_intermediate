@@ -2,6 +2,7 @@
 
 const express = require('express');
 const app = express ();
+app.disable('x-powered-by')
 
 let notes = [
     {
@@ -31,14 +32,17 @@ let notes = [
 //     res.end(JSON.stringify(notes))
 // })
 
+//Página inicial al ingresar al localhost
 app.get('/', (req, res) => {
     res.send('<h1>Using express from NodeJS</h1>');
 })
 
+//llamar todos los recursos
 app.get('/api/notes', (req, res) => {
     res.json(notes);
 })
 
+//buscar un recurso por id
 app.get('/api/notes/:id', (req, res) =>  {
     const id = Number(req.params.id);
     const note = notes.find(note => 
@@ -54,6 +58,7 @@ app.get('/api/notes/:id', (req, res) =>  {
     }
 })
 
+// Eliminar un recurso
 app.delete('/api/notes/:id', (req, res) => {
     const id = Number(req.params.id);
     notes = notes.filter(note => note.id !== id)
