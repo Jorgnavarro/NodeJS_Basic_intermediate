@@ -26,7 +26,6 @@ let notes = [
     }
 ]
 
-
 // const app = http.createServer((req, res) => {
 //     res.writeHead(200, { 'content-Type': 'application/json' })
 // we need to convert notes to JSON text chain. 
